@@ -4,6 +4,8 @@ import app.game.logic.GameLoop;
 
 /**
  * MainApp
+ * 
+ * The main class Here gameloop is called
  */
 public class MainApp {
 

@@ -1,5 +1,10 @@
 package app.game.ui;
 
+/**
+ * UIText
+ * 
+ * Class containing large UI elements in an array
+ */
 public class UIText {
 
 	public String[] str = new String[5];

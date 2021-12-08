@@ -2,10 +2,21 @@ package app.game.logic;
 
 import app.game.ui.UIController;
 
+/**
+ * GameCommands
+ * 
+ * Registry of Commands in the game
+ */
 public class GameCommands {
 
 	UIController uic = new UIController();
 
+	/**
+	 * move() => Function for getting change in location
+	 * 
+	 * @param dirn Direction to move in
+	 * @return Factor by which player should be moved
+	 */
 	public int[] move(String dirn) {
 		dirn.toLowerCase();
 		int[] moveFac = new int[2];
@@ -53,6 +64,9 @@ public class GameCommands {
 		return moveFac;
 	}
 
+	/**
+	 * displayHelp() => Functionn to display help
+	 */
 	public void displayHelp() {
 
 		uic.displayUI(1);
@@ -60,10 +74,16 @@ public class GameCommands {
 
 	}
 
+	/**
+	 * displayErr() => Functionn to display Invalid Input
+	 */
 	public void displayErr() {
 		System.out.println("NOT a VALID COMMAND");
 	}
 
+	/**
+	 * quitGame() => Functionn to display Thank you message for quitting and quitting the game
+	 */
 	public void quitGame() {
 		System.out.println("THANKS FOR PLAYING!");
 		System.exit(0);
