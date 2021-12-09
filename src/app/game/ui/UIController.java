@@ -1,5 +1,7 @@
 package app.game.ui;
 
+import app.game.MainPlayer;
+
 /**
  * UIController
  * 
@@ -14,8 +16,10 @@ public class UIController {
 	 */
 	public void displayUI(int index) {
 
-		UIText uts = new UIText();
-		System.out.println(uts.str[index]);
+		UIText.setText();
+
+		System.out.println(UIText.str[index]);
+
 	}
 
 
@@ -26,49 +30,16 @@ public class UIController {
 	 */
 	public void displayMapGrid(int[] loc) {
 
-		// Wrapping player's movements
-		if (loc[0] < 0)
-			loc[0] = 9;
-		else if (loc[0] > 9)
-			loc[0] = 0;
+		UIText.getMapGrid(loc);
+		System.out.println(UIText.str[2]);
 
-		if (loc[1] < 0)
-			loc[1] = 9;
-		else if (loc[1] > 9)
-			loc[1] = 0;
+	}
 
-		// Displaying top border for grid
-		for (int y = 0; y < 23; y++) {
-			if (y == 0 || y == 22) {
-				System.out.print("+");
-			} else {
-				System.out.print("-");
-			}
-		}
-		System.out.println();
 
-		// Printing the grid
-		for (int x = 0; x < 10; x++) {
-			System.out.print("| ");
-			for (int y = 0; y < 10; y++) {
-				if (x == loc[0] && y == loc[1]) {
-					System.out.print("# ");
-				} else {
-					System.out.print(". ");
-				}
-			}
-			System.out.println("|");
+	public void displayQuit(MainPlayer mPlayer) {
 
-		}
-
-		// Displaying top border for grid
-		for (int y = 0; y < 23; y++) {
-			if (y == 0 || y == 22) {
-				System.out.print("+");
-			} else {
-				System.out.print("-");
-			}
-		}
+		UIText.getQuitDisplay(mPlayer);
+		System.out.println(UIText.str[3]);
 
 	}
 }

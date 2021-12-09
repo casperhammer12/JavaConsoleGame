@@ -1,5 +1,6 @@
 package app.game.logic;
 
+import app.game.MainPlayer;
 import app.game.ui.UIController;
 
 /**
@@ -10,6 +11,7 @@ import app.game.ui.UIController;
 public class GameCommands {
 
 	UIController uic = new UIController();
+	String cmd = new String();
 
 	/**
 	 * move() => Function for getting change in location
@@ -67,7 +69,7 @@ public class GameCommands {
 	/**
 	 * displayHelp() => Functionn to display help
 	 */
-	public void displayHelp() {
+	private void displayHelp() {
 
 		uic.displayUI(1);
 		System.out.println();
@@ -77,15 +79,58 @@ public class GameCommands {
 	/**
 	 * displayErr() => Functionn to display Invalid Input
 	 */
-	public void displayErr() {
+	private void displayErr() {
 		System.out.println("NOT a VALID COMMAND");
 	}
 
 	/**
 	 * quitGame() => Functionn to display Thank you message for quitting and quitting the game
 	 */
-	public void quitGame() {
-		System.out.println("THANKS FOR PLAYING!");
-		System.exit(0);
+	private void quitGame(MainPlayer mPlayer) {
+		uic.displayQuit(mPlayer);
+	}
+
+	public void setCmd(String s) {
+		cmd = s;
+	}
+
+	public int execCmd(MainPlayer mPlayer) {
+
+		// getting words in uCmd using utils.getWords()
+		String[] cmdWords = GameLogic.getWords(cmd);
+
+		// Switc-case for command
+		// Uses String based case
+		// JDK > 8
+		// Displays map with player location if player just moved
+		switch (cmdWords[0]) {
+
+			case "move":
+			case "mov":
+			case "mv":
+				int[] moveadd = this.move(cmdWords[1]);
+				mPlayer.movePlayer(moveadd[1], moveadd[0]);
+				uic.displayMapGrid(mPlayer.Location);
+				System.out.println();
+				return 0;
+
+			case "help":
+			case "h":
+				this.displayHelp();
+				return 0;
+
+			case "quit":
+			case "exit":
+			case "e":
+			case "q":
+				GameLogic.setDisplacement(mPlayer);
+				this.quitGame(mPlayer);
+				return 1;
+
+			default:
+				this.displayErr();
+				return 0;
+
+		}
 	}
 }

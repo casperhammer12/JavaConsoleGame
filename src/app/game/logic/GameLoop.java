@@ -23,7 +23,7 @@ public class GameLoop {
 	MainPlayer mPlayer;
 	String uCmd = "";
 	UIController uic = new UIController();
-	utils ut = new utils();
+	GameLogic ut = new GameLogic();
 	Scanner sc = new Scanner(System.in);
 
 	/**
@@ -48,7 +48,7 @@ public class GameLoop {
 		System.out.println();
 
 		uCmd = "help";
-		execCmd();
+		callCmd();
 
 		// System.out.println(mPlayer.playerName);
 
@@ -60,63 +60,29 @@ public class GameLoop {
 			System.out.println("ENTER ACTION");
 			System.out.print(">> ");
 			uCmd = sc.nextLine();
+			System.out.println();
+
 			// Converting command to lowercase for overriding case-sensitivity
 			uCmd.toLowerCase();
 
-			System.out.println();
-
 			// Call function for executing the user's entered command
-			execCmd();
+			callCmd();
 
 		}
 	}
 
-	private void execCmd() {
+	private void callCmd() {
 
 		// Object for accessing the various commands
 		GameCommands gCommands = new GameCommands();
 
-		// getting words in uCmd using utils.getWords()
-		String[] cmd = ut.getWords(uCmd);
+		gCommands.setCmd(uCmd);
+		int closeFlag = gCommands.execCmd(mPlayer);
 
-		// Switc-case for command
-		// Uses String based case
-		// JDK > 8
-		// Displays map with player location if player just moved
-		int displaymg = 0;
-		switch (cmd[0]) {
-
-			case "move":
-			case "mov":
-			case "mv":
-				displaymg = 1;
-				int[] moveadd = gCommands.move(cmd[1]);
-				mPlayer.movePlayer(moveadd[1], moveadd[0]);
-				break;
-
-			case "help":
-			case "h":
-				gCommands.displayHelp();
-				break;
-
-			case "quit":
-			case "exit":
-			case "e":
-			case "q":
-				sc.close();
-				gCommands.quitGame();
-				break;
-
-			default:
-				gCommands.displayErr();
-				break;
-
+		if (closeFlag == 1) {
+			sc.close();
+			System.exit(0);
 		}
 
-		if (displaymg == 1) {
-
-			uic.displayMapGrid(mPlayer.playerLoc);
-			System.out.println();
-		}
 	}
 }

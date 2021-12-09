@@ -5,37 +5,51 @@ package app.game;
  * 
  * Class symbolizing the main player
  * 
- * @param playerName name of player
- * @param playerScore name of player
- * @param playerLoc location of player in [x,y]
- * @param playerId Player ID(UNIMPLEMENTED)
+ * @param Name name of player
+ * @param Distance distance moved by player
+ * @param Displacement displacement of player
+ * @param Location location of player in [x,y]
+ * @param FinalLocation end location of player in [x,y]
  */
 public class MainPlayer {
 
-	public String playerName;
-	public int playerScore;
-	public int[] playerLoc = new int[2];
-	long playerId;
+	public String Name;
+	public int Distance;
+	public double Displacement;
+	public int[] Location;
+	public int[] FinalLocation;
 
 	public MainPlayer(String name) {
-		playerName = name;
-		playerId = 0;
-		playerLoc[0] = 5;
-		playerLoc[1] = 5;
-	}
 
-	// UNIMPLEMENTED
-	public void scoreOps(int fac) {
-		try {
-			this.playerScore += fac;
-		} catch (Exception e) {
-			System.err.println(e);
-		}
+		Name = name;
+
+		Displacement = 0;
+		Distance = 0;
+
+		Location = new int[] {5, 5};
+		FinalLocation = new int[] {5, 5};
+
 	}
 
 	// Function for moving the player
 	public void movePlayer(int moveX, int moveY) {
-		this.playerLoc[0] += moveX;
-		this.playerLoc[1] += moveY;
+
+		this.Location[0] += moveX;
+		this.Location[1] += moveY;
+
+		this.FinalLocation[0] += moveX;
+		this.FinalLocation[1] += moveY;
+
+		this.Distance += 1;
+
+	}
+
+	/**
+	 * @param displacement the displacement to set
+	 */
+	public void getDisplacement(double displacement) {
+
+		Displacement = displacement;
+
 	}
 }

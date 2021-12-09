@@ -1,6 +1,8 @@
 package app.game.logic;
 
-public class utils {
+import app.game.MainPlayer;
+
+public class GameLogic {
 
 	/**
 	 * calcDigits() => function to calculate number of digits for a given number
@@ -8,7 +10,7 @@ public class utils {
 	 * @param num Given integer
 	 * @return Number of Digits in num
 	 */
-	public int calcDigits(int num) {
+	public static int getDigits(int num) {
 
 		int digitNo = 0;
 
@@ -26,7 +28,7 @@ public class utils {
 	 * @param s Given string
 	 * @return Array containing all words from the string
 	 */
-	public String[] getWords(String s) {
+	public static String[] getWords(String s) {
 
 		// Setting up input String
 		// Cutting off trailing and leading whitespaces
@@ -58,6 +60,17 @@ public class utils {
 		}
 
 		return words;
+	}
+
+	public static void setDisplacement(MainPlayer mPlayer) {
+
+		double displacement;
+
+		displacement = Math.sqrt(Math.pow((4 - mPlayer.FinalLocation[0]), 2)
+				+ Math.pow((4 - mPlayer.FinalLocation[1]), 2)) + 1;
+
+		mPlayer.getDisplacement(displacement);
+
 	}
 
 }
